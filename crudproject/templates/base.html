@@ -2,7 +2,16 @@
 <html>
   <head>
     <title>유진이의 방명록</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      * {
+        font-family: "Nanum Myeongjo", serif;
+      }
       .header {
         display: flex;
         justify-content: space-around;
@@ -26,6 +35,17 @@
       a {
         text-decoration: none;
         color: black;
+      }
+      .writer {
+        font-weight: bold;
+      }
+      .date {
+        color: rgb(156, 156, 156);
+        font-size: small;
+      }
+      .edit,
+      .delete {
+        color: rgb(88, 112, 175);
       }
     </style>
   </head>

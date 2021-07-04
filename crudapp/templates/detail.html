@@ -18,10 +18,22 @@
           {% endif %}
         </aside>
         <main>
-          <p style="font-weight: bold">{{post.writer}}</p>
-          <p style="color: rgb(156, 156, 156); font-size: small">
-            {{post.created_at}}
-          </p>
+          {% if user.is_authenticated %}
+          <span>
+            <a class="edit" href="{% url 'postupdate' post.id %}">수정</a>
+          </span>
+          &nbsp;
+          <span>
+            <a
+              class="edit"
+              href="{% url 'postdelete' post.id %}"
+              onclick="return confirm('정말 삭제하시겠습니까?')"
+              >삭제</a
+            >
+          </span>
+          {% endif %}
+          <p class="writer">{{post.writer}}</p>
+          <p class="date">{{post.created_at}}</p>
           <p>{{post.body}}</p>
         </main>
       </section>

@@ -6,7 +6,7 @@ class Blog(models.Model):
     writer = models.CharField(max_length=200)
     created_at = models.DateTimeField('작성시간', default = timezone.now)
     body = models.TextField()
-    image = models.ImageField(upload_to='images/', default = "", null=True)
+    image = models.ImageField(upload_to='images/', default = "", null=True, blank=True)
 
     def __str__(self):
         return self.writer

@@ -25,4 +25,6 @@ urlpatterns = [
     path('post/<int:post_id>', crudapp.views.detail, name="detail"),
     path('accounts/', include('accounts.urls')),
     path('postcreate/', crudapp.views.postcreate, name="postcreate"),
+    path('postupdate/<int:post_id>', crudapp.views.postupdate, name="postupdate"),
+    path('postdelete/<int:post_id>', crudapp.views.postdelete, name='postdelete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

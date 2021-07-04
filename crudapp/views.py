@@ -13,7 +13,7 @@ def detail(request, post_id):
 
 def postcreate(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
@@ -21,3 +21,20 @@ def postcreate(request):
     else:
         form = PostForm()
         return render(request, 'new.html', {'form': form})
+
+def postupdate(request, post_id):
+    post = get_object_or_404(Blog, pk=post_id)
+    if request.method == 'POST':
+            form = PostForm(request.POST, request.FILES, instance=post)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.save()
+                return redirect('detail', post_id=post.pk)
+    else:
+        form = PostForm(instance=post)
+        return render(request, 'edit.html', {'form': form})
+
+def postdelete(request, post_id):
+    post = get_object_or_404(Blog, pk=post_id)
+    post.delete()
+    return redirect('home')

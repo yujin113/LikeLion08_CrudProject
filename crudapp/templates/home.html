@@ -19,10 +19,8 @@
             {% endif %}
           </aside>
           <main>
-            <p style="font-weight: bold">{{post.writer}}</p>
-            <p style="color: rgb(156, 156, 156); font-size: small">
-              {{post.created_at}}
-            </p>
+            <p class="writer">{{post.writer}}</p>
+            <p class="date">{{post.created_at}}</p>
             <p>{{post.summary}}</p>
           </main>
         </section>

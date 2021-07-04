@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .write {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    {% extends 'base.html' %} {% block content %}
+
+    <div class="write">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+        </table>
+        <br />
+        <input type="submit" value="등록" />
+      </form>
+    </div>
+    {% endblock %}
+  </body>
+</html>
