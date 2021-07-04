@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>유진이의 방명록</title>
+    <style>
+      .header {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .header h1 {
+        text-align: center;
+        display: inline-block;
+        font-size: 2.5em;
+        color: rgb(88, 112, 175);
+      }
+      hr {
+        height: 12px;
+        border: 0;
+        box-shadow: inset 0 12px 12px -12px rgba(61, 61, 61, 0.5);
+      }
+      .header p {
+        display: inline-block;
+        margin-right: 1em;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>방명록</h1>
+      <span>
+        <p><a href="{% url 'home' %}">홈</a></p>
+        <p><a href="{% url 'postcreate' %}">글쓰기</a></p>
+        {% if user.is_authenticated %}
+        <p style="color: rgb(88, 112, 175)">
+          환영합니다. {{ user.username }}님!
+        </p>
+        <p>
+          <a href="javascript:{document.getElementById('logout').submit()}"
+            >로그아웃</a
+          >
+        </p>
+        <form id="logout" method="POST" action="{% url 'logout' %}">
+          {% csrf_token %} <input type="hidden" />
+        </form>
+        {% else %}
+        <p><a href="{% url 'login' %}">로그인</a></p>
+        <p><a href="{% url 'signup' %}">회원가입</a></p>
+        {% endif %}
+      </span>
+    </div>
+    <hr />
+  </body>
+</html>
+
+{% block content %} {% endblock %}

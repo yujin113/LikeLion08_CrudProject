@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% extends 'base.html' %} {% block content %} {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'crudapp/css/home.css' %}"
+    />
+  </head>
+  <body>
+    {% for post in posts.all %}
+    <a href="{% url 'detail' post.id %}">
+      <div class="post">
+        <section>
+          <aside>
+            {% if post.image.url != "" %}
+            <img src="{{post.image.url}}" width="150px" height="150px" />
+            {% endif %}
+          </aside>
+          <main>
+            <p style="font-weight: bold">{{post.writer}}</p>
+            <p style="color: rgb(156, 156, 156); font-size: small">
+              {{post.created_at}}
+            </p>
+            <p>{{post.summary}}</p>
+          </main>
+        </section>
+      </div>
+    </a>
+    {% endfor %} {% endblock %}
+  </body>
+</html>

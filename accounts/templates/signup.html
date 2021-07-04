@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        text-align: center;
+      }
+      form {
+        margin-top: 50px;
+      }
+      input {
+        font-size: 1.2em;
+        border: 1.5px solid gray;
+        background-color: white;
+        border-radius: 10px;
+        line-height: 1.5em;
+        width: 200px;
+        padding: 10px;
+        margin: 5px;
+      }
+      .submit {
+        background-color: rgb(88, 112, 175);
+        color: white;
+        font-size: 1.5em;
+        font-weight: bold;
+        border: none;
+        padding: 13px;
+      }
+      .error {
+        color: rgb(190, 0, 0);
+      }
+    </style>
+  </head>
+  <body>
+    {% extends 'base.html' %} {% block content %}
+
+    <br />
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="{% url 'signup' %}">
+      {% csrf_token %} Username:
+      <br />
+      <input name="username" type="text" value="" />
+      <br />
+      Password:
+      <br />
+      <input name="password1" type="password" value="" />
+      <br />
+      Confirm Password:
+      <br />
+      <input name="password2" type="password" value="" />
+      <br />
+      <br />
+      <input class="submit" type="submit" value="Sign Up!" />
+    </form>
+
+    {% endblock %}
+  </body>
+</html>

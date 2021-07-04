@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% extends 'base.html' %} {% load static %} {% block content %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'crudapp/css/detail.css' %}"
+    />
+    <style></style>
+  </head>
+  <body>
+    <div class="post">
+      <section>
+        <aside>
+          {% if post.image.url != "" %}
+          <img src="{{post.image.url}}" />
+          {% endif %}
+        </aside>
+        <main>
+          <p style="font-weight: bold">{{post.writer}}</p>
+          <p style="color: rgb(156, 156, 156); font-size: small">
+            {{post.created_at}}
+          </p>
+          <p>{{post.body}}</p>
+        </main>
+      </section>
+    </div>
+    {% endblock %}
+  </body>
+</html>
