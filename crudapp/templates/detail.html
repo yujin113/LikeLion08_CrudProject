@@ -12,7 +12,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
+        padding: 2em;
         width: 50%;
         margin: 2em auto;
         border-radius: 20px;
@@ -29,16 +29,23 @@
         max-height: 300px;
       }
       .comment {
-        padding: 20px 0;
-        padding-left: 3em;
-        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 3em;
+        width: calc(50% - 2em);
         margin: 2em auto;
         border-radius: 20px;
         box-shadow: 0 0 10px 0 rgb(88, 112, 175);
       }
-      h3 {
+      .comment_guide {
         width: 50%;
         margin: 0 auto;
+      }
+      .comment .edit {
+        margin-right: 1em;
+      }
+      .comment .date {
+        margin-bottom: 1em;
       }
     </style>
   </head>
@@ -72,26 +79,39 @@
       </section>
     </div>
 
-    <a href="{% url 'commentcreate' post.id %}">댓글 작성하기</a>
-    <form method="POST">
-      {% csrf_token %} {{ form }}
-      <button type="submit">댓글 등록</button>
+    <h3 class="comment_guide">
+      <a href="{% url 'commentcreate' post.id %}">댓글 작성하기</a>
+    </h3>
+    <div class="comment">
+      <form method="POST">
+        {% csrf_token %} {{ form }}
+        <button type="submit">댓글 등록</button>
+      </form>
+      <br />
+    </div>
+    <h3 class="comment_guide">댓글 목록</h3>
+    <br />
+    <form class="comment_guide" method="POST">
+      {% csrf_token %} {{ update_form }}
+      <button type="submit">댓글 수정</button>
     </form>
-
-    <h3>댓글 목록</h3>
     {% for comment in post.comment_set.all %}
     <div class="comment">
-      <a href="{% url 'commentupdate' post.id comment.id %}">수정하기</a>
-      <form method="POST">
-        {% csrf_token %} {{ update_form }}
-        <button type="submit">댓글 수정</button>
-      </form>
-      <a
-        href="{% url 'commentdelete' post.id comment.id %}"
-        onclick="return confirm('정말 삭제하시겠습니까?')"
-        >삭제하기</a
-      >
-      {{comment.content}}
+      <div>
+        <div class="date">{{comment.created_at}}</div>
+        <div>{{comment.content}}</div>
+      </div>
+      <div>
+        <a class="edit" href="{% url 'commentupdate' post.id comment.id %}"
+          >수정</a
+        >
+        <a
+          class="delete"
+          href="{% url 'commentdelete' post.id comment.id %}"
+          onclick="return confirm('정말 삭제하시겠습니까?')"
+          >삭제</a
+        >
+      </div>
     </div>
     {% endfor %} {% endblock %}
   </body>

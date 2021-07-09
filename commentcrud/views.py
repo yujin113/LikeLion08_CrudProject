@@ -3,7 +3,6 @@ from .forms import CommentForm
 from .models import Comment
 from crudapp.models import Blog
 
-# Create your views here.
 def commentcreate(request, post_id):
     post = get_object_or_404(Blog, pk=post_id)
     if request.method=='POST':
