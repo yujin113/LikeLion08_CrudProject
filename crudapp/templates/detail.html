@@ -86,6 +86,11 @@
         {% csrf_token %} {{ update_form }}
         <button type="submit">댓글 수정</button>
       </form>
+      <a
+        href="{% url 'commentdelete' post.id comment.id %}"
+        onclick="return confirm('정말 삭제하시겠습니까?')"
+        >삭제하기</a
+      >
       {{comment.content}}
     </div>
     {% endfor %} {% endblock %}

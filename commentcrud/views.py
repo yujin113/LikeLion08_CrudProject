@@ -31,3 +31,9 @@ def commentupdate(request, post_id, comment_id):
     else:
         form = CommentForm(instance=comment)
         return render(request, 'detail.html', {'update_form': form, 'post': post, 'comment': comment})
+
+def commentdelete(request, post_id, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    post = get_object_or_404(Blog, pk=post_id)
+    comment.delete()
+    return redirect('detail', post_id=post.pk)
