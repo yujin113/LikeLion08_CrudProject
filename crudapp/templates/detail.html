@@ -18,7 +18,6 @@
         border-radius: 20px;
         box-shadow: 0 0 10px 0 rgb(88, 112, 175);
       }
-
       section {
         display: flex;
         width: 80%;
@@ -28,6 +27,18 @@
         margin-right: 3em;
         max-width: 300px;
         max-height: 300px;
+      }
+      .comment {
+        padding: 20px 0;
+        padding-left: 3em;
+        width: 50%;
+        margin: 2em auto;
+        border-radius: 20px;
+        box-shadow: 0 0 10px 0 rgb(88, 112, 175);
+      }
+      h3 {
+        width: 50%;
+        margin: 0 auto;
       }
     </style>
   </head>
@@ -60,6 +71,23 @@
         </main>
       </section>
     </div>
-    {% endblock %}
+
+    <a href="{% url 'commentcreate' post.id %}">댓글 작성하기</a>
+    <form method="POST">
+      {% csrf_token %} {{ form }}
+      <button type="submit">댓글 등록</button>
+    </form>
+
+    <h3>댓글 목록</h3>
+    {% for comment in post.comment_set.all %}
+    <div class="comment">
+      <a href="{% url 'commentupdate' post.id comment.id %}">수정하기</a>
+      <form method="POST">
+        {% csrf_token %} {{ update_form }}
+        <button type="submit">댓글 수정</button>
+      </form>
+      {{comment.content}}
+    </div>
+    {% endfor %} {% endblock %}
   </body>
 </html>

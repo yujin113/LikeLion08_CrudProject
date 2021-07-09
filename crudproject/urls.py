@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 import crudapp.views
+import commentcrud.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('postcreate/', crudapp.views.postcreate, name="postcreate"),
     path('postupdate/<int:post_id>', crudapp.views.postupdate, name="postupdate"),
     path('postdelete/<int:post_id>', crudapp.views.postdelete, name='postdelete'),
+    path('commentcrud/', include('commentcrud.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
