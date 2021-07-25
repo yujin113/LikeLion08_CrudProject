@@ -8,7 +8,8 @@ class Blog(models.Model):
     created_at = models.DateTimeField('작성시간', default = timezone.now)
     body = models.TextField()
     image = models.ImageField(upload_to='images/', default = "", null=True, blank=True)
-    # users = models.ManyToManyField(User, through='Like')
+    users = models.ManyToManyField(User, through='Like', related_name='post', blank=True)
+    like_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
@@ -16,7 +17,7 @@ class Blog(models.Model):
     def summary(self):
         return self.body[:100]
 
-# class Like(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-#     liked_at = models.DateTimeField(auto_now_add=True)
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

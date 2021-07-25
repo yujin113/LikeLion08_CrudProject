@@ -29,4 +29,6 @@ urlpatterns = [
     path('postupdate/<int:post_id>', crudapp.views.postupdate, name="postupdate"),
     path('postdelete/<int:post_id>', crudapp.views.postdelete, name='postdelete'),
     path('commentcrud/', include('commentcrud.urls')),
+    path('like/<int:post_id>', crudapp.views.like, name="like"),
+    path('mylike/<int:user_id>', crudapp.views.mylike, name="mylike"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

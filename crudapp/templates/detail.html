@@ -58,6 +58,11 @@
           {% endif %}
         </aside>
         <main>
+          {% if like %}
+            <a href="{% url 'like' post.id %}"><p>❤️ {{ post.like_count }}</p></a>
+          {% else %}
+            <a href="{% url 'like' post.id %}"><p>🤍 {{ post.like_count }}</p></a>
+          {% endif %}
           {% if user.is_authenticated and user.username == post.user.username %}
           <span>
             <a class="edit" href="{% url 'postupdate' post.id %}">수정</a>
