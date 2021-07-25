@@ -58,4 +58,5 @@ def like(request, post_id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def mylike(request, user_id):
-    return render(request, 'like.html')
+    liked = Like.objects.filter(user=request.user)
+    return render(request, 'like.html', {'likes': liked})

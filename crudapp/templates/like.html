@@ -8,15 +8,18 @@
       href="{% static 'crudapp/css/detail.css' %}"
     />
     <style>
-      .post {
+        .post {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 2em;
+        padding: 20px;
         width: 50%;
         margin: 2em auto;
         border-radius: 20px;
         box-shadow: 0 0 10px 0 rgb(88, 112, 175);
+      }
+      .post:hover {
+        box-shadow: 0 0 10px 5px rgb(88, 112, 175);
       }
       section {
         display: flex;
@@ -25,34 +28,32 @@
       }
       img {
         margin-right: 3em;
-        max-width: 300px;
-        max-height: 300px;
+        object-fit: cover;
       }
-      .comment {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px 3em;
-        width: calc(50% - 2em);
-        margin: 2em auto;
-        border-radius: 20px;
-        box-shadow: 0 0 10px 0 rgb(88, 112, 175);
-      }
-      .comment_guide {
-        width: 50%;
-        margin: 0 auto;
-      }
-      .comment .edit {
-        margin-right: 1em;
-      }
-      .comment .date {
-        margin-bottom: 1em;
+      a {
+        text-decoration: none;
+        color: black;
       }
     </style>
   </head>
   <body>
-    <div class="post">
-      
-    </div>
-    {% endblock %}
+    {% for like in likes.all %}
+    <a href="{% url 'detail' like.post.id %}">
+      <div class="post">
+        <section>
+          <aside>
+            {% if like.post.image.url != "" %}
+            <img src="{{like.post.image.url}}" width="150px" height="150px" />
+            {% endif %}
+          </aside>
+          <main>
+            <p class="writer">{{like.post.user.username}}</p>
+            <p class="date">{{like.post.created_at}}</p>
+            <p>{{like.post.summary}}</p>
+          </main>
+        </section>
+      </div>
+    </a>
+    {% endfor %} {% endblock %}
   </body>
 </html>

@@ -56,7 +56,7 @@
         <p><a href="{% url 'home' %}">홈</a></p>
         {% if user.is_authenticated %}
         <p><a href="{% url 'postcreate' user.id %}">글쓰기</a></p>
-        <p><a href="{% url 'mylike' user.id %}">Liked</a></p>
+        <p><a href="{% url 'mylike' user.id %}">좋아요한 글</a></p>
         <p style="color: rgb(88, 112, 175)">
           환영합니다. {{ user.username }}님!
         </p>
