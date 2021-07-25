@@ -20,6 +20,7 @@
       }
       section {
         display: flex;
+        flex-grow: 0;
         width: 80%;
         text-align: left;
       }
@@ -47,6 +48,12 @@
       .comment .date {
         margin-bottom: 1em;
       }
+      .btn {
+        order: 2;
+      }
+      section main {
+        flex-grow: 2;
+      }
     </style>
   </head>
   <body>
@@ -57,21 +64,7 @@
           <img src="{{post.image.url}}" />
           {% endif %}
         </aside>
-        <main>
-          {% if user.is_authenticated %}
-            {% if like %}
-              <a href="{% url 'like' post.id %}"><p>❤️ {{ post.like_count }}</p></a>
-            {% else %}
-              <a href="{% url 'like' post.id %}"><p>🤍 {{ post.like_count }}</p></a>
-            {% endif %}
-          {% else %}
-            {% if like %}
-              <p>❤️ {{ post.like_count }}</p>
-            {% else %}
-              <p>🤍 {{ post.like_count }}</p>
-            {% endif %}
-          {% endif %}
-          {% if user.is_authenticated and user.username == post.user.username %}
+        <div class="btn">
           <span>
             <a class="edit" href="{% url 'postupdate' post.id %}">수정</a>
           </span>
@@ -84,6 +77,36 @@
               >삭제</a
             >
           </span>
+        </div>
+        <main>
+          <div>
+            {% if user.is_authenticated %}
+              {% if like %}
+                <a href="{% url 'like' post.id %}"><span>❤️ {{ post.like_count }}</span></a>
+              {% else %}
+                <a href="{% url 'like' post.id %}"><span>🤍 {{ post.like_count }}</span></a>
+              {% endif %}
+            {% else %}
+              {% if not like %}
+                <span>❤️ {{ post.like_count }}</span>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% if user.is_authenticated and user.username == post.user.username %}
+          <!-- <div class="btn">
+            <span>
+              <a class="edit" href="{% url 'postupdate' post.id %}">수정</a>
+            </span>
+            &nbsp;
+            <span>
+              <a
+                class="edit"
+                href="{% url 'postdelete' post.id %}"
+                onclick="return confirm('정말 삭제하시겠습니까?')"
+                >삭제</a
+              >
+            </span>
+          </div> -->
           {% endif %}
           <p class="writer">{{post.user.username}}</p>
           <p class="date">{{post.created_at}}</p>
