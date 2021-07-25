@@ -25,7 +25,7 @@ urlpatterns = [
     path('', crudapp.views.home, name="home"),
     path('post/<int:post_id>', crudapp.views.detail, name="detail"),
     path('accounts/', include('accounts.urls')),
-    path('postcreate/', crudapp.views.postcreate, name="postcreate"),
+    path('postcreate/<int:user_id>', crudapp.views.postcreate, name="postcreate"),
     path('postupdate/<int:post_id>', crudapp.views.postupdate, name="postupdate"),
     path('postdelete/<int:post_id>', crudapp.views.postdelete, name='postdelete'),
     path('commentcrud/', include('commentcrud.urls')),

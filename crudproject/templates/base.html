@@ -51,11 +51,11 @@
   </head>
   <body>
     <div class="header">
-      <h1>방명록</h1>
+      <a href="{% url 'home' %}"><h1>방명록</h1></a>
       <span>
         <p><a href="{% url 'home' %}">홈</a></p>
-        <p><a href="{% url 'postcreate' %}">글쓰기</a></p>
         {% if user.is_authenticated %}
+        <p><a href="{% url 'postcreate' user.id %}">글쓰기</a></p>
         <p style="color: rgb(88, 112, 175)">
           환영합니다. {{ user.username }}님!
         </p>

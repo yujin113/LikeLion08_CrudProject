@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Blog
 from .forms import PostForm
@@ -11,11 +12,13 @@ def detail(request, post_id):
     post_detail = get_object_or_404(Blog, pk = post_id)
     return render(request, 'detail.html', {'post': post_detail})
 
-def postcreate(request):
+def postcreate(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            post.user = user
             post.save()
             return redirect('home')
     else:
