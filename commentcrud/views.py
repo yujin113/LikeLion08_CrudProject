@@ -2,13 +2,16 @@ from django.shortcuts import render,get_object_or_404, redirect
 from .forms import CommentForm
 from .models import Comment
 from crudapp.models import Blog
+from django.contrib.auth.models import User
 
-def commentcreate(request, post_id):
+def commentcreate(request, user_id, post_id):
+    user = get_object_or_404(User, pk=user_id)
     post = get_object_or_404(Blog, pk=post_id)
     if request.method=='POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.user = user
             comment.post = post
             comment.save()
             return redirect('detail', post_id=post.pk)

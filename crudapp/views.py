@@ -10,8 +10,10 @@ def home(request):
 
 def detail(request, post_id):
     post_detail = get_object_or_404(Blog, pk = post_id)
-    like = Like.objects.filter(user=request.user, post=post_detail)
-    return render(request, 'detail.html', {'post': post_detail, 'like': like})
+    if request.user.is_authenticated :
+        like = Like.objects.filter(user=request.user, post=post_detail)
+        return render(request, 'detail.html', {'post': post_detail, 'like': like})
+    return render(request, 'detail.html', {'post': post_detail})
 
 def postcreate(request, user_id):
     user = get_object_or_404(User, pk=user_id)

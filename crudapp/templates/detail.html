@@ -58,10 +58,18 @@
           {% endif %}
         </aside>
         <main>
-          {% if like %}
-            <a href="{% url 'like' post.id %}"><p>❤️ {{ post.like_count }}</p></a>
+          {% if user.is_authenticated %}
+            {% if like %}
+              <a href="{% url 'like' post.id %}"><p>❤️ {{ post.like_count }}</p></a>
+            {% else %}
+              <a href="{% url 'like' post.id %}"><p>🤍 {{ post.like_count }}</p></a>
+            {% endif %}
           {% else %}
-            <a href="{% url 'like' post.id %}"><p>🤍 {{ post.like_count }}</p></a>
+            {% if like %}
+              <p>❤️ {{ post.like_count }}</p>
+            {% else %}
+              <p>🤍 {{ post.like_count }}</p>
+            {% endif %}
           {% endif %}
           {% if user.is_authenticated and user.username == post.user.username %}
           <span>
@@ -84,16 +92,18 @@
       </section>
     </div>
 
-    <h3 class="comment_guide">
-      <a href="{% url 'commentcreate' post.id %}">댓글 작성하기</a>
-    </h3>
-    <div class="comment">
-      <form method="POST">
-        {% csrf_token %} {{ form }}
-        <!-- <button type="submit">댓글 등록</button> -->
-      </form>
-      <br />
-    </div>
+    {% if user.is_authenticated %}
+      <h3 class="comment_guide">
+        <a href="{% url 'commentcreate' user.id post.id %}">댓글 작성하기</a>
+      </h3>
+      <div class="comment">
+        <form method="POST">
+          {% csrf_token %} {{ form }}
+          <!-- <button type="submit">댓글 등록</button> -->
+        </form>
+        <br />
+      </div>
+    {% endif %}
     <h3 class="comment_guide">댓글 목록</h3>
     <br />
     <form class="comment_guide" method="POST">
@@ -103,7 +113,8 @@
     {% for comment in post.comment_set.all %}
     <div class="comment">
       <div>
-        <div class="date">{{comment.created_at}}</div>
+        <span>{{comment.user.username}}</span>
+        <p class="date">{{comment.created_at}}</p>
         <div>{{comment.content}}</div>
       </div>
       <div>
